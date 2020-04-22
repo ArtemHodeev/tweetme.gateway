@@ -1,12 +1,18 @@
 package com.sandbox.demo.tweetme.gateway.entity;
 
-public class SingleResponse<T> {
-    private T value;
-    private long count;
+import org.springframework.http.HttpStatus;
 
-    public SingleResponse(T value, long count) {
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
+public class SingleResponse<T> extends BaseResponse{
+    private T value;
+
+    public SingleResponse(T value) {
         this.value = value;
-        this.count = count;
+        this.count = 1;
+        this.timestamp = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+        this.code = HttpStatus.OK.value();
     }
 
     public T getValue() {
@@ -21,7 +27,7 @@ public class SingleResponse<T> {
         return count;
     }
 
-    public void setCount(long count) {
+    protected void setCount(long count) {
         this.count = count;
     }
 }

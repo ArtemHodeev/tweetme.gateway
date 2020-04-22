@@ -7,13 +7,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Controller
-@Path("/post")
+@Path("/tweet")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TweetController {
     @GET
     @Path("/ping")
     public SingleResponse<String> getPong() {
-        return new SingleResponse<>("Pong", 1);
+        return new SingleResponse<>("Pong");
     }
 }
