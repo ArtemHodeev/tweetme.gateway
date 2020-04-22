@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-public class SingleResponse<T> extends BaseResponse{
-    private T value;
-
+public class SingleResponse<T> extends BaseResponse<T> {
     public SingleResponse(T value) {
         this.value = value;
         this.count = 1;
@@ -15,19 +13,5 @@ public class SingleResponse<T> extends BaseResponse{
         this.code = HttpStatus.OK.value();
     }
 
-    public T getValue() {
-        return value;
-    }
 
-    public void setValue(T value) {
-        this.value = value;
-    }
-
-    public long getCount() {
-        return count;
-    }
-
-    protected void setCount(long count) {
-        this.count = count;
-    }
 }

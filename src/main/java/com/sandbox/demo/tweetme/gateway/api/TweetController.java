@@ -14,6 +14,6 @@ public class TweetController {
     @GET
     @Path("/ping")
     public SingleResponse<String> getPong() {
-        return new SingleResponse<>("Pong");
+        return new SingleResponse<>("pong");
     }
 }

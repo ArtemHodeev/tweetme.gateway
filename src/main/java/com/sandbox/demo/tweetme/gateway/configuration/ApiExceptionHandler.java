@@ -11,10 +11,8 @@ import javax.ws.rs.core.Response;
 public class ApiExceptionHandler implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception ex) {
-        ExceptionResponse errorEntity = new ExceptionResponse();
-        errorEntity.setErrorMsg(ex.getLocalizedMessage());
         return Response.status(Response.Status.BAD_REQUEST)
-                .entity(errorEntity)
+                .entity(new ExceptionResponse(ex))
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }
