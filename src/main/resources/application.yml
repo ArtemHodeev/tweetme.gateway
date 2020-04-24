@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+  rabbitmq:
+    username: admin
+    password: 123
+    host: localhost
+    port: 5672
+    virtual-host: tweetme_dev
+
+server:
+  port: 8181
+
+messaging:
+  modifyQueue:
+    name: modifyQueue
+    durable: false
+  exchange: tweetExchange
+
