@@ -12,8 +12,15 @@ server:
   port: 8181
 
 messaging:
-  modifyQueue:
+  modify-queue:
     name: modifyQueue
     durable: false
-  exchange: tweetExchange
+    routing-key: tweet.action.modify
+  log-queue:
+    name: logQueue
+    durable: false
+    routing-key: tweet.action.modify
+  exchange:
+    name: tweetExchange
+    routing-key-pattern: tweet.action.#
 
