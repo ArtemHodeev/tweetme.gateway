@@ -14,12 +14,12 @@ server:
 messaging:
   modify-queue:
     name: modifyQueue
-    durable: false
+    durable: true
     routing-key: tweet.action.modify
   log-queue:
     name: logQueue
-    durable: false
-    routing-key: tweet.action.modify
+    durable: true
+    routing-key: tweet.action.log
   exchange:
     name: tweetExchange
     routing-key-pattern: tweet.action.#

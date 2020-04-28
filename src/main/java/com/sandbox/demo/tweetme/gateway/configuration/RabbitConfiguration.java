@@ -1,5 +1,6 @@
 package com.sandbox.demo.tweetme.gateway.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sandbox.demo.tweetme.gateway.configuration.properties.AmqpProperties;
 import com.sandbox.demo.tweetme.gateway.configuration.properties.LogQueueProperties;
 import com.sandbox.demo.tweetme.gateway.configuration.properties.ModifyQueueProperties;
@@ -8,6 +9,7 @@ import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -44,17 +46,18 @@ public class RabbitConfiguration {
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, TopicExchange topicExchange) throws Exception {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setExchange(topicExchange.getName());
+        rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
     }
 
     @Bean
     public Queue tweetModifyQueue() {
-        return new Queue(modifyQueueProperties.getName(), modifyQueueProperties.getDurable(),true, false);
+        return new Queue(modifyQueueProperties.getName(), modifyQueueProperties.getDurable(),false, false);
     }
 
     @Bean
     public Queue tweetLogQueue() {
-        return new Queue(logQueueProperties.getName(), logQueueProperties.getDurable(),true, false);
+        return new Queue(logQueueProperties.getName(), logQueueProperties.getDurable(),false, false);
     }
 
     @Bean
@@ -70,6 +73,12 @@ public class RabbitConfiguration {
     @Bean
     public Binding modifyBinding() {
         return BindingBuilder.bind(tweetModifyQueue()).to(topicExchange()).with(topicExchangeProperties.getRoutingKeyPattern());
+    }
+
+    @Bean
+    public Jackson2JsonMessageConverter messageConverter() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
 }

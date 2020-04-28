@@ -4,11 +4,12 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
-public class SingleResponse<T> extends BaseResponse<T> {
-    public SingleResponse(T value) {
+public class ListResponse<T> extends BaseResponse<List<T>> {
+    public ListResponse(List<T> value) {
         this.value = value;
-        this.count = 1;
+        this.count = value.size();
         this.timestamp = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
         this.code = HttpStatus.OK.value();
     }
