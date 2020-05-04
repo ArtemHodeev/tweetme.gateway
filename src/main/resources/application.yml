@@ -16,10 +16,14 @@ messaging:
     name: modifyQueue
     durable: true
     routing-key: tweet.action.modify
+    exclusive: false
+    auto-delete: false
   log-queue:
     name: logQueue
-    durable: true
+    durable: false
     routing-key: tweet.action.log
+    exclusive: false
+    auto-delete: false
   exchange:
     name: tweetExchange
     routing-key-pattern: tweet.action.#
