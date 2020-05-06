@@ -1,8 +1,6 @@
 package com.sandbox.demo.tweetme.gateway.service;
 
 import com.sandbox.demo.tweetme.gateway.configuration.properties.ModifyQueueProperties;
-import com.sandbox.demo.tweetme.gateway.configuration.properties.TopicExchangeProperties;
-import com.sandbox.demo.tweetme.gateway.dto.NewTweet;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

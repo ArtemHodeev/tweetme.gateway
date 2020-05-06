@@ -3,18 +3,20 @@ package com.sandbox.demo.tweetme.gateway.dto;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class Tweet {
+public class Tweet implements Serializable {
+    private static final long serialVersionUID = 8615338929189858746L;
     @NotNull
     private Long id;
 
-    @NotBlank
-    private String title;
-
     @NotNull
     private String body;
+
+    @NotNull
+    private LocalDateTime creationDate;
 
     @NotNull
     private TweetType tweetType;
@@ -39,20 +41,20 @@ public class Tweet {
                 .toHashCode();
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getBody() {

@@ -1,6 +1,8 @@
 package com.sandbox.demo.tweetme.gateway.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sandbox.demo.tweetme.gateway.configuration.properties.AmqpProperties;
 import com.sandbox.demo.tweetme.gateway.configuration.properties.LogQueueProperties;
 import com.sandbox.demo.tweetme.gateway.configuration.properties.ModifyQueueProperties;
@@ -78,6 +80,8 @@ public class RabbitConfiguration {
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return new Jackson2JsonMessageConverter(objectMapper);
     }
 

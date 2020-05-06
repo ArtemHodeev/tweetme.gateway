@@ -2,13 +2,10 @@ package com.sandbox.demo.tweetme.gateway.api;
 
 import com.sandbox.demo.tweetme.gateway.dto.NewTweet;
 import com.sandbox.demo.tweetme.gateway.dto.Tweet;
-import com.sandbox.demo.tweetme.gateway.entity.ListResponse;
 import com.sandbox.demo.tweetme.gateway.entity.SingleResponse;
 import com.sandbox.demo.tweetme.gateway.service.TweetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -28,13 +25,6 @@ public class TweetController {
     }
 
     @GET
-//    @Path("/ping")
-    @RequestMapping("/ping")
-    public String getPong() {
-        return "pong";
-    }
-
-    @GET
     @Path("/{id}")
     public Tweet getTweet(@PathVariable("id") Long id) {
         return new Tweet();
@@ -47,9 +37,9 @@ public class TweetController {
     }
 
     @PUT
-    public String addTweet(@Valid NewTweet rawTweet) {
+    public SingleResponse<String> addTweet(@Valid NewTweet rawTweet) {
         tweetService.add(rawTweet);
-        return "OK";
+        return new SingleResponse<>("OK");
     }
 
     @POST
