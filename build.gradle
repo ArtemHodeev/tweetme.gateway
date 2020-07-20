@@ -1,6 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 }
 
@@ -11,6 +11,11 @@ def junitJupiterVersion = "5.6.2"
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+    set('springCloudVersion', 'Hoxton.M3')
 }
 
 dependencies {
@@ -18,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'org.hibernate:hibernate-validator:6.1.4.Final'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.0'
@@ -29,6 +35,13 @@ dependencies {
     }
 //    testImplementation 'org.springframework.amqp:spring-rabbit-test'
 }
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 
 test {
     useJUnitPlatform()

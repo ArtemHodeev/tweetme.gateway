@@ -31,6 +31,9 @@ public class RabbitConfiguration {
     @Autowired
     LogQueueProperties logQueueProperties;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Bean
     @ConditionalOnMissingBean
     public ConnectionFactory rabbitConnectionFactory() throws Exception {
@@ -79,9 +82,9 @@ public class RabbitConfiguration {
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.registerModule(new JavaTimeModule());
+//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return new Jackson2JsonMessageConverter(objectMapper);
     }
 
